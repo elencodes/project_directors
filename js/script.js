@@ -43,39 +43,54 @@ const directors = [{
 	},
 ];
 
+//2. Ищем объекты (область списка, абзац для вывода фильмов) в HTML документе для дальнейшего взаимодействия.
 const list = document.querySelector(`#list`);
 const bestFilms = document.querySelector(`#best-films`);
 
+//3. С помощью метода forEach перебираем элементы массива и выполняем функцию для каждого элемента массива 
 directors.forEach(function (item) {
+	//3.1 Создаем новые элементы (нумерованный список и заголовки) для отображения списка имен режиссеров
 	const director = document.createElement(`li`);
-	const name = document.createElement(`h2`);
+	const name = document.createElement(`h3`);
+	//3.2 Обращаемся к свойству объектов name и выводим список все имен режиссеров
 	const nameDirectors = item.name;
+	//3.3 Наполняем новый элемент контентом (значение тега h3 теперь имя режиссера)
 	name.textContent = `${nameDirectors}`;
+	//3.4 Вставляем новый элемент (имя) внутрь и в начало списка с информацией о режиссерах
 	director.appendChild(name);
-
+	//3.5 Создаем новый элемент (абзац) для отображения карьерного списка режиссеров
 	const career = document.createElement(`p`);
+	//3.6 Обращаемся к свойству объектов career и выводим карьерный список
 	const careerDirectors = item.career;
+	//3.7 Наполняем новый элемент контентом (значение тега p теперь карьера режиссера)
 	career.textContent = `${careerDirectors}`;
+	//3.8 Вставляем новый элемент (карьера) внутрь и в начало списка с информацией о режиссерах (после имен)
 	director.appendChild(career);
-
+	//3.9 Создаем новый элемент (ссылку) для отображения фильмов режиссеров
 	const link = document.createElement(`a`);
+	//3.10 Обращаемся к свойству объектов films и выводим список фильмов
 	const filmDirectors = item.films;
+	//3.11 Меняем содержимое недавно созданного тега <a>в HTML файле для корректного отображения ссылки на фильмы
 	link.innerHTML = `<a href="${filmDirectors}">Фильмография</a>`;
+	//3.12 Вставляем новый элемент (карьера) внутрь и в начало списка с информацией о режиссерах (после карьеры)
 	director.appendChild(link);
-
+	//3.13 Вставляем элемент (нумерованный cписок) внутрь и в начало общего списка (тега <ol>)
 	list.appendChild(director);
 });
 
+//4 С помощью метода map вызываем функцию для каждого элемента массива (для свойства объектов top_rated_film) и возвращаем новый массив из данных (список лучших фильмов)
 const topFilmsList = directors.map(function (item) {
 	return item.top_rated_film;
 });
 
+//4 Преобразовываем массив лучших фильмов в строку с разделителем в виде ', '
 const showTopFilmsList = topFilmsList.join(', ');
 
-const nameFilms = document.createElement(`h2`);
-nameFilms.innerHTML = `<h2>Лучшие фильмы режиссеров</h2>`;
-bestFilms.appendChild(nameFilms);
-
+//5 Создаем новый элемент (абзац) для отображения лучших фильмов режиссеров
 const filmsList = document.createElement(`p`);
+//5.1 Наполняем новый элемент контентом (значение тега p теперь лучших фильмов режиссеров)
 filmsList.textContent = `${showTopFilmsList}`;
+//5.2 Вставляем элемент (лучшие фильмов) внутрь и в начало абзаца (тега <p> в HTML)
 bestFilms.appendChild(filmsList);
+//5.3 Выравниваем текст абзаца со списком лучших фильмов по центру
+filmsList.style.textAlign = "center";
